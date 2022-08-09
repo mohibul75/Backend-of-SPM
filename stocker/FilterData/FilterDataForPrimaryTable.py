@@ -6,6 +6,12 @@ class object:
         self.change = change
         self.ycp = ycp
 
+class status:
+    def __init__(self, up, down, unchanged,):
+        self.up = up
+        self.down = down
+        self.unchanged = unchanged
+
 
 def get_response():
     import requests
@@ -16,12 +22,16 @@ def get_response():
     #print(len(response.json()))
     for item in response.json():
         obj = object(item['FullName'], item['LTP'], item['Close'], item['Change'], item['YCP'])
-        # print(json.dumps(obj.__dict__))
+        #print(json.dumps(obj.__dict__))
         arr.append(json.dumps(obj.__dict__))
     print(arr)
     #print(len(arr))
 
-
+    status_response = requests.get(
+        "https://www.amarstock.com/Info/DSE")
+    status_response_data = status_response.json()
+    stat = status(status_response_data['Advance'], status_response_data['Decline'], status_response_data['Unchange'])
+    print(json.dumps(stat.__dict__))
 
 if __name__ == '__main__':
     get_response()
