@@ -5,8 +5,7 @@ def get_percentage(x, y, z):
     return f"{(x*100)/(x + y + z):.2f}"
 
 def todays_value():
-    print("todays value")
-    
+
     dict = []
 
     for i in range(len(data['Category'])):
@@ -14,18 +13,14 @@ def todays_value():
         dict_data["Category"] = data['Category'][i]
         dict_data["Value"] = f"{data['Value'][i]:.1f}"
         dict.append(dict_data)
-    
 
-    json_object = json.dumps(dict, indent=2)
-    print(json.loads(json_object))
     
-    return json_object
+    return dict
 
         
    
 def compare():
-    print("compare")
-    
+
     dict = []
 
     for i in range(len(data['Category'])):
@@ -35,15 +30,12 @@ def compare():
         dict_data["Yesterdays_Value"] = f"{data['YValue'][i]:.1f}"
         dict.append(dict_data)
 
-    json_object = json.dumps(dict, indent=2)
-    print(json.loads(json_object))
     
-    return json_object
+    return dict
 
 
 def gainer_loser():
-    print("gainer_loser")
-    
+
     dict = []
     
     for i in range(len(data['Category'])): 
@@ -58,16 +50,9 @@ def gainer_loser():
         dict_data["Loser_percentage"] = get_percentage(data['Loser'][i], data['Winner'][i], data['Neutral'][i])
         dict.append(dict_data)
 
-    json_object = json.dumps(dict, indent=2)
-    print(json.loads(json_object))
-    
-    return json_object
+
+    return dict
     
 
 response = requests.get("https://www.amarstock.com//info/sector/composition")
 data = response.json()
-# print(data)
-
-todays_value()
-compare()
-gainer_loser()
