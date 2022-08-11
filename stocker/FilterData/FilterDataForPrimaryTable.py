@@ -7,11 +7,17 @@ class object:
         self.ycp = ycp
 
 class status:
-    def __init__(self, up, down, unchanged,):
+    def __init__(self, up, down, unchanged, up_percentage, down_percentage, unchanged_percentage):
         self.up = up
         self.down = down
         self.unchanged = unchanged
+        self.up_percentage = up_percentage
+        self.down_percentage = down_percentage
+        self.unchanged_percentage = unchanged_percentage
 
+def percentage(part, whole):
+    percentage = 100 * float(part) / float(whole)
+    return percentage
 
 def get_response():
     import requests
@@ -30,10 +36,10 @@ def get_response():
     status_response = requests.get(
         "https://www.amarstock.com/Info/DSE")
     status_response_data = status_response.json()
-    stat = status(status_response_data['Advance'], status_response_data['Decline'], status_response_data['Unchange'])
+
+    total = status_response_data['Advance'] + status_response_data['Decline'] + status_response_data['Unchange']
+    stat = status(status_response_data['Advance'], status_response_data['Decline'], status_response_data['Unchange'], percentage(status_response_data['Advance'], total), percentage(status_response_data['Decline'], total), percentage(status_response_data['Unchange'], total))
     print(json.dumps(stat.__dict__))
 
 if __name__ == '__main__':
     get_response()
-
-
