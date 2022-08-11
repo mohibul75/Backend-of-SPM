@@ -26,8 +26,8 @@ jobs:
         uses: Azure/aks-set-context@v1
         with:
           creds: "${{secrets.AZURE_CREDENTIALS}}"
-          resource-group: spm
-          cluster-name: spm-rg
+          resource-group: spm-rg
+          cluster-name: spm
 
       - name: Create secret in Kubernetes cluster
         uses: Azure/k8s-create-secret@v1.1
