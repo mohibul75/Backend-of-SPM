@@ -45,6 +45,6 @@ jobs:
           manifests: |
             k8s/deployment.yml
             k8s/service.yml
-          images: "${{secrets.DOCKER_USERNAME}}/managementfontend:${{github.sha}}"
+          images: "${{secrets.DOCKER_USERNAME}}/spm:${{github.sha}}"
           imagepullsecrets: docker-image-pull-secret
           action: deploy
