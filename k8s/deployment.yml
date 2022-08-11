@@ -19,3 +19,12 @@ spec:
           image: purbo75/spm
           ports:
             - containerPort: 8000
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
