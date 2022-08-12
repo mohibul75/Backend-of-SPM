@@ -1,7 +1,6 @@
 import requests
 import json
 
-
 class object:
     def __init__(self, trading_code, ltp, closep, change, ycp, ):
         self.trading_code = trading_code
@@ -52,8 +51,6 @@ def get_trade_statistics():
                   percentage(status_response_data['Unchange'], total))
     # print(json.dumps(stat.__dict__))
     return json.dumps(stat.__dict__)
+    stat = status(status_response_data['Advance'], status_response_data['Decline'], status_response_data['Unchange'])
 
-
-if __name__ == '__main__':
-    print(get_company_statistics())
-    print(get_trade_statistics())
+    return stat.__dict__
