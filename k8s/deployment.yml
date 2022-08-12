@@ -18,7 +18,7 @@ spec:
         - name: backend-of-spm
           image: purbo75/spm
           ports:
-            - containerPort: 8000
+            - containerPort: 8001
           env:
             - name: POD_IP
               valueFrom:
