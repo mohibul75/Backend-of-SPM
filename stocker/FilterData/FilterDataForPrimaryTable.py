@@ -22,21 +22,19 @@ class status:
 
 def percentage(part, whole):
     percentage = 100 * float(part) / float(whole)
-    return percentage
+    return round(percentage, 2)
 
 
 def get_company_statistics():
     arr = []
     response = requests.get(
         "https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR3Nnl2tdnlEuJTOlZgH4yBuQR9ngbSg7y70e_kskcaWqwBfdqSkE7E8-II")
-    # print(len(response.json()))
+
     for item in response.json():
         obj = object(item['FullName'], item['LTP'], item['Close'], item['Change'], item['YCP'])
-        # print(json.dumps(obj.__dict__))
-        arr.append(json.dumps(obj.__dict__))
-    # print(arr)
+        arr.append(obj.__dict__)
+
     return arr
-    # print(len(arr))
 
 
 def get_trade_statistics():
@@ -49,8 +47,6 @@ def get_trade_statistics():
                   percentage(status_response_data['Advance'], total),
                   percentage(status_response_data['Decline'], total),
                   percentage(status_response_data['Unchange'], total))
-    # print(json.dumps(stat.__dict__))
-    return json.dumps(stat.__dict__)
-    stat = status(status_response_data['Advance'], status_response_data['Decline'], status_response_data['Unchange'])
+
 
     return stat.__dict__
