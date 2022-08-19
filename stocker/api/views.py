@@ -31,6 +31,10 @@ def trade_staticis(request):
     data = get_trade_statistics()
     return Response(status=status.HTTP_200_OK, data=data)
 
+@api_view(['GET'])
+def technical_indicators_staticis(request):
+    data = get_technical_indicators_statistics()
+    return Response(data=data)
 
 @api_view(['GET'])
 def cat_todays_value(request):
