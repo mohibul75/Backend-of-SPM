@@ -2,12 +2,16 @@ import requests
 import json
 
 class technical_indiactors_statistics:
-    def __init__(self, Name, Sector, RSI, MACD, OBV):
+    def __init__(self, Name, Sector, SMA, MACD, ADM, RSI, STOC, OBV, BB):
         self.Name = Name
         self.Sector = Sector
-        self.RSI = RSI
+        self.SMA = SMA
         self.MACD = MACD
+        self.ADM = ADM
+        self.RSI = RSI
+        self.STOC = STOC
         self.OBV = OBV
+        self.BB = BB
 
 class object:
     def __init__(self, trading_code, ltp, closep, change, ycp, ):
@@ -62,10 +66,12 @@ def get_trade_statistics():
 def get_technical_indicators_statistics():
     arr = []
     url = "https://www.amarstock.com/api/grid/scan/simple"
-    data = ["RSI(14)", "MACD(12,26,9)", "OBV(20)"]
+    data = ["MA(12)", "MACD(12,26,9)", "ADX(14)", "RSI(14)", "SO(3,3)", "OBV(20)", "BB(20,2)"]
+    #data = ["RSI(14)", "MACD(12,26,9)", "OBV(20)"]
     response = requests.post(url, json=data)
     for item in response.json():
         obj = technical_indiactors_statistics(item['Name'], item['Sector'], item['Indi1'], item['Indi2'],
-                                                  item['Indi3'])
+                                                  item['Indi3'], item['Indi4'], item['Indi5'],
+                                                  item['Indi6'], item['Indi7'])
         arr.append(obj.__dict__)
     return arr
