@@ -12,7 +12,6 @@ class technical_indiactors_statistics:
         self.STOC = STOC
         self.OBV = OBV
         self.BB = BB
-
 class object:
     def __init__(self, trading_code, ltp, closep, change, ycp, ):
         self.trading_code = trading_code
