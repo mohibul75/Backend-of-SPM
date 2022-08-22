@@ -21,8 +21,17 @@ def get_dividend_yield(data):
     return dividend_yield
 
 
-def get_PEG_ratio(data):
-    return "PEG ratio need to be calculate"
+def get_PEG_ratio(data, company_name, audited_PE_ratio):
+    url = "https://www.amarstock.com/company/a4e5-dd034dc69f8a/?symbol=" + company_name
+    response = requests.get(url)
+    data = response.json()
+    
+    eps_initial = data[1]["e"]
+    eps_final = data[0]["e"]
+    eps_growth = (eps_final - eps_initial)/eps_initial
+    PEG_ratio = audited_PE_ratio/eps_growth
+    
+    return f"{PEG_ratio:.2f}"
 
 
 def get_dividend_payout_ratio(data):
@@ -46,7 +55,7 @@ def get_health_indicators(company_name):
     
     eps = get_EPS(data)
     audited_PE, unaudited_PE = get_PE(data)   
-    PEG_ratio = get_PEG_ratio(data)       
+    PEG_ratio = get_PEG_ratio(data, company_name, audited_PE)       
     dividend_payout_ratio = get_dividend_payout_ratio(data)   
     dividend_yield = get_dividend_yield(data)
     
@@ -62,5 +71,5 @@ def get_health_indicators(company_name):
     return dict
 
 
-xys = get_health_indicators("BEXIMCO")
+xys = get_health_indicators("ACI")
 print(xys)
