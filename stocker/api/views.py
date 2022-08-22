@@ -1,3 +1,4 @@
+import sys
 from django.shortcuts import render
 
 # Create your views here.
@@ -45,4 +46,9 @@ def cat_compare(request):
 @api_view(['GET'])
 def cat_gainer_loser(request):
     data = gainer_loser()
+    return Response(data=data)
+
+@api_view(['GET'])
+def technical_indicators_staticis(request):
+    data = get_technical_indicators_statistics()
     return Response(data=data)
