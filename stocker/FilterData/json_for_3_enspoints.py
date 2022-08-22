@@ -43,6 +43,8 @@ def compare():
         dict_data["Yesterdays_percentage"] = get_yesterday_value_percentage(get_today_value_percentage(data['Value'][i], total_todays_value), data['YValue'][i], data['Value'][i])
         dict.append(dict_data)
 
+    print(dict)
+    
     return dict
 
 
