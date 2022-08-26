@@ -6,8 +6,10 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from FilterData.FilterDataForPrimaryTable import *
-from FilterData.json_for_3_enspoints import *
+from filterData.FilterDataForPrimaryTable import *
+from filterData.json_for_3_enspoints import *
+
+
 
 @api_view(['GET'])
 def hellow(request):

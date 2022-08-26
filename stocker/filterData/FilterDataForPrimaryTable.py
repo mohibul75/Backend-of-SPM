@@ -1,6 +1,45 @@
 import requests
 import json
+class RSI:
+    def __init__(self, value):
+        self.value = value
+        if value<30 :
+            self.Interpretation = "oversold"
+            self.verdict = "Buy"
 
+
+        elif value>30 and value<70 :
+            self.Interpretation = "compare"
+            self.verdict = "sell"
+        elif value>70 :
+            self.Interpretation = "over bought"
+            self.verdict = "sell"
+class STOC:
+    def __init__(self, value):
+        self.value = value
+        if value<20 :
+            self.Interpretation = "oversold"
+            self.verdict = "Buy"
+
+
+        elif value>20 and value<80 :
+            self.Interpretation = "compare"
+            self.verdict = "sell"
+        elif value>80 :
+            self.Interpretation = "over bought"
+            self.verdict = "sell"
+
+class MACD:
+    def __init__(self, value, MA):
+        self.value = value
+        if value>MA :
+            self.Interpretation = "bullish"
+            self.verdict = "Buy"
+
+
+        elif value<MA :
+            self.Interpretation = "bearish"
+            self.verdict = "sell/neutral"
 class technical_indiactors_statistics:
     def __init__(self, Name, Sector, SMA, MACD, ADM, RSI, STOC, OBV, BB):
         self.Name = Name
@@ -66,11 +105,14 @@ def get_technical_indicators_statistics():
     arr = []
     url = "https://www.amarstock.com/api/grid/scan/simple"
     data = ["MA(12)", "MACD(12,26,9)", "ADX(14)", "RSI(14)", "SO(3,3)", "OBV(20)", "BB(20,2)"]
-    #data = ["RSI(14)", "MACD(12,26,9)", "OBV(20)"]
     response = requests.post(url, json=data)
     for item in response.json():
-        obj = technical_indiactors_statistics(item['Name'], item['Sector'], item['Indi1'], item['Indi2'],
-                                                  item['Indi3'], item['Indi4'], item['Indi5'],
-                                                  item['Indi6'], item['Indi7'])
+        rsi = RSI(item['Indi4'])
+        stoc = STOC(item['Indi5'])
+        macd = MACD(item['Indi2'], item['Indi1'])
+        ma = STOC(item['Indi1'])
+        obj = technical_indiactors_statistics(item['Name'], item['Sector'], ma.__dict__, macd.__dict__,
+                                              item['Indi3'], rsi.__dict__, stoc.__dict__,
+                                              item['Indi6'], item['Indi7'])
         arr.append(obj.__dict__)
     return arr
