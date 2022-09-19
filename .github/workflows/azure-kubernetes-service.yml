@@ -1,9 +1,9 @@
 name: AKS Deployment
 on:
   push:
-    branches: [master]
+    branches: [none]
   pull_request:
-    branches: [master]
+    branches: [none]
 jobs:
   build:
     runs-on: ubuntu-latest
