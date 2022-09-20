@@ -39,7 +39,7 @@ jobs:
           sudo echo "$PRIVATE_KEY" > spm-backend-key.pem && chmod 600 spm-backend-key.pem
           sudo find . -iname spm-backend-key.pem
           sudo pwd
-          ssh -o StrictHostKeyChecking=no -T spm-backend-key.pem '${USER_NAME}'@$'{HOSTNAME}'
+          ssh -o StrictHostKeyChecking=no -T ./spm-backend-key.pem '${USER_NAME}'@$'{HOSTNAME}'
           docker login --username '${{secrets.DOCKER_USERNAME}}' --password '${{secrets.DOCKER_PASSWORD}}'
           docker run -p 8001:8001 '${{secrets.DOCKER_USERNAME}}'/spm:'${{github.sha}}'
           
