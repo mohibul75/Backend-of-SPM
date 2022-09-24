@@ -5,6 +5,10 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+  
+concurrency:
+  group: build-and-test
+  # cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-latest
