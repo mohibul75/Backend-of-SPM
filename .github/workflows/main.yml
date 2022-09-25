@@ -46,7 +46,8 @@ jobs:
     - name: ls -a via ssh
       uses: fifsky/ssh-action@master
       with:
-        command: whoami
+        command: sudo whoami
         host: ${{ secrets.HOSTNAME  }}
         user: ${{ secrets.USER_NAME  }}
         key: ${{ secrets.AWS_PRIVATE_KEY  }}
+        pass: ${{ secrets.PASSPHASE }}
