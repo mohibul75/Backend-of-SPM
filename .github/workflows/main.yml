@@ -33,12 +33,20 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-     - name: SSH deploy
-       uses: appleboy/ssh-action@v0.1.4
-       with:
-          host: ${{ secrets.HOSTNAME  }}
-          username: ${{ secrets.USER_NAME  }}
-          key:  ${{ secrets.AWS_PRIVATE_KEY  }}
-          passphrase: ${{ secrets.PASSPHASE }}
-          port:  ${{ secrets.PORT }}
-          script: whoami
+  #   - name: SSH deploy
+  #     uses: appleboy/ssh-action@v0.1.4
+  #     with:
+  #        host: ${{ secrets.HOSTNAME  }}
+  #        username: ${{ secrets.USER_NAME  }}
+  #        key:  ${{ secrets.AWS_PRIVATE_KEY  }}
+  #        passphrase: ${{ secrets.PASSPHASE }}
+  #        port:  ${{ secrets.PORT }}
+  #        script: whoami
+  
+    - name: ls -a via ssh
+      uses: fifsky/ssh-action@master
+      with:
+        command: whoami
+        host: ${{ secrets.HOSTNAME  }}
+        user: ${{ secrets.USER_NAME  }}
+        key: ${{ secrets.AWS_PRIVATE_KEY  }}
