@@ -8,7 +8,7 @@ on:
   
 concurrency:
   group: build-and-test
-  cancel-in-progress: true
+  #cancel-in-progress: true
   
 jobs:
   build:
@@ -46,7 +46,12 @@ jobs:
     - name: ls -a via ssh
       uses: fifsky/ssh-action@master
       with:
-        command: sudo whoami
+        command: |
+              sudo cd spm
+              sudo docker-compose stop
+              sudo docker-compose rm -f
+              sudo docker-compose pull   
+              sudo docker-compose up -d
         host: ${{ secrets.HOSTNAME  }}
         user: ${{ secrets.USER_NAME  }}
         key: ${{ secrets.AWS_PRIVATE_KEY  }}
