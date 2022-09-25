@@ -23,10 +23,10 @@ jobs:
         run: docker login --username '${{secrets.DOCKER_USERNAME}}' --password '${{secrets.DOCKER_PASSWORD}}'
 
       - name: tag docker image
-        run: docker tag spm:'${{github.sha}}' '${{secrets.DOCKER_USERNAME}}'/spm:'${{github.sha}}'
+        run: docker tag spm:'latest' '${{secrets.DOCKER_USERNAME}}'/spm:'latest'
 
       - name: push docker image
-        run: docker push '${{secrets.DOCKER_USERNAME}}'/spm:'${{github.sha}}'
+        run: docker push '${{secrets.DOCKER_USERNAME}}'/spm:'latest'
 
   Deploy:
     needs: build
