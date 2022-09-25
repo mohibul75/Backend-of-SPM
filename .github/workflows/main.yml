@@ -40,5 +40,5 @@ jobs:
           key:  ${{ secrets.AWS_PRIVATE_KEY  }}
           port:  ${{ secrets.PORT }}
           script: |
-               docker login --username '${{secrets.DOCKER_USERNAME}}' --password '${{secrets.DOCKER_PASSWORD}}'
-               docker run -p 8001:8001 '${{secrets.DOCKER_USERNAME}}'/spm:'${{github.sha}}'
+               sudo docker login --username '${{secrets.DOCKER_USERNAME}}' --password '${{secrets.DOCKER_PASSWORD}}'
+               sudo docker run -p 8001:8001 '${{secrets.DOCKER_USERNAME}}'/spm:'${{github.sha}}'
