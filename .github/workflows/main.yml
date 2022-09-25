@@ -40,5 +40,6 @@ jobs:
           username: ${{ secrets.USER_NAME  }}
           key:  ${{ secrets.AWS_PUBLIC_KEY  }}
           port:  ${{ secrets.PORT }}
+          passphase :  ${{ secrets.PASSPHASE }}
           script: |
               whoami
