@@ -37,7 +37,7 @@ jobs:
        with:
           host: ${{ secrets.HOSTNAME  }}
           username: ${{ secrets.USER_NAME  }}
-          key:  ${{ secrets.SSH_PR_KEY  }}
+          key:  ${{ secrets.AWS_PRIVATE_KEY  }}
           port:  ${{ secrets.PORT }}
           script: |
               whoami
