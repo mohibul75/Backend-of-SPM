@@ -41,5 +41,4 @@ jobs:
           key:  ${{ secrets.AWS_PRIVATE_KEY  }}
           passphrase: ${{ secrets.PASSPHASE }}
           port:  ${{ secrets.PORT }}
-          script: |
-              whoami
+          script: whoami
