@@ -54,5 +54,5 @@ jobs:
               sudo docker-compose up -d
         host: ${{ secrets.HOSTNAME  }}
         user: ${{ secrets.USER_NAME  }}
-        key: ${{ secrets.AWS_PRIVATE_KEY  }}
-        pass: ${{ secrets.PASSPHASE }}
+        key: ${{ secrets.PEM_FILE  }}
+        #pass: ${{ secrets.PASSPHASE }}
