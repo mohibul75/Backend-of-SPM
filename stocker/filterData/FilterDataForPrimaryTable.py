@@ -7,15 +7,15 @@ class RSI:
         self.name = "RSI"
         self.value = value
         if value < 30:
-            self.Interpretation = "oversold"
+            self.interpretation = "oversold"
             self.verdict = "Buy"
 
 
         elif value > 30 and value < 70:
-            self.Interpretation = "compare"
+            self.interpretation = "compare"
             self.verdict = "sell"
         elif value > 70:
-            self.Interpretation = "over bought"
+            self.interpretation = "over bought"
             self.verdict = "sell"
 
 
@@ -24,15 +24,15 @@ class STOC:
         self.name = name
         self.value = value
         if value < 20:
-            self.Interpretation = "oversold"
+            self.interpretation = "oversold"
             self.verdict = "Buy"
 
 
         elif value > 20 and value < 80:
-            self.Interpretation = "compare"
+            self.interpretation = "compare"
             self.verdict = "sell"
         elif value > 80:
-            self.Interpretation = "over bought"
+            self.interpretation = "over bought"
             self.verdict = "sell"
 
 
@@ -41,12 +41,12 @@ class MACD:
         self.name = "MACD"
         self.value = value
         if value > MA:
-            self.Interpretation = "bullish"
+            self.interpretation = "bullish"
             self.verdict = "Buy"
 
 
         elif value < MA:
-            self.Interpretation = "bearish"
+            self.interpretation = "bearish"
             self.verdict = "sell/neutral"
 
 
@@ -136,6 +136,7 @@ def get_technical_indicators_statistics():
 
 
 def get_technical_indicators_statistics_of_Company(company_code):
+    arr = []
     url = "https://www.amarstock.com/api/grid/scan/simple"
     data = ["MA(12)", "MACD(12,26,9)", "ADX(14)", "RSI(14)", "SO(3,3)", "OBV(20)", "BB(20,2)"]
     response = requests.post(url, json=data)
@@ -148,9 +149,13 @@ def get_technical_indicators_statistics_of_Company(company_code):
         obv = STOC("OBV", item['Indi6'])
         bb = STOC("BB", item['Indi7'])
         if item['Name'] == company_code:
-            obj = technical_indiactors_statistics(item['Name'], item['Sector'], ma.__dict__, macd.__dict__,
-                                                  adm.__dict__, rsi.__dict__, stoc.__dict__,
-                                                  obv.__dict__, bb.__dict__)
-            return obj.__dict__
+            arr.append(ma.__dict__)
+            arr.append(macd.__dict__)
+            arr.append(adm.__dict__)
+            arr.append(rsi.__dict__)
+            arr.append(stoc.__dict__)
+            arr.append(obv.__dict__)
+            arr.append(bb.__dict__)
+            return arr
         else:
             return None
