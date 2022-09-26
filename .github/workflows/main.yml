@@ -47,7 +47,7 @@ jobs:
       uses: fifsky/ssh-action@master
       with:
         command: |
-              sudo cd spm
+              cd spm
               sudo docker-compose stop
               sudo docker-compose rm -f
               sudo docker-compose pull   
