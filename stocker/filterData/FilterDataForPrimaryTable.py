@@ -70,6 +70,8 @@ class object:
         self.closep = closep
         self.change = change
         self.ycp = ycp
+        self.difference = ycp - ltp
+        self.percetage = percentage(abs(ycp - ltp), ycp)
 
 
 class status:
@@ -81,9 +83,13 @@ class status:
         self.down_percentage = down_percentage
         self.unchanged_percentage = unchanged_percentage
 
+
 def percentage(part, whole):
-    percentage = 100 * float(part) / float(whole)
-    return round(percentage, 2)
+    if whole == 0:
+        return "N/A"
+    else:
+        percentage = 100 * float(part) / float(whole)
+        return round(percentage, 2)
 
 
 def get_company_statistics():
@@ -122,7 +128,7 @@ def get_technical_indicators_statistics():
         stoc = STOC("STOC", item['Indi5'])
         macd = MACD(item['Indi2'], item['Indi1'])
         ma = STOC("SMA", item['Indi1'])
-        obj = technical_indiactors_statistics(item['Name'], item['Sector'], ma.__dict__ , macd.__dict__,
+        obj = technical_indiactors_statistics(item['Name'], item['Sector'], ma.__dict__, macd.__dict__,
                                               item['Indi3'], rsi.__dict__, stoc.__dict__,
                                               item['Indi6'], item['Indi7'])
         arr.append(obj.__dict__)
@@ -142,7 +148,7 @@ def get_technical_indicators_statistics_of_Company(company_code):
         obv = STOC("OBV", item['Indi6'])
         bb = STOC("BB", item['Indi7'])
         if item['Name'] == company_code:
-            obj = technical_indiactors_statistics(item['Name'], item['Sector'], ma.__dict__ , macd.__dict__,
+            obj = technical_indiactors_statistics(item['Name'], item['Sector'], ma.__dict__, macd.__dict__,
                                                   adm.__dict__, rsi.__dict__, stoc.__dict__,
                                                   obv.__dict__, bb.__dict__)
             return obj.__dict__
