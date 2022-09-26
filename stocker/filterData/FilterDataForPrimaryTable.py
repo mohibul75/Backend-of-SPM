@@ -130,7 +130,6 @@ def get_technical_indicators_statistics():
 
 
 def get_technical_indicators_statistics_of_Company(company_code):
-    # arr = []
     url = "https://www.amarstock.com/api/grid/scan/simple"
     data = ["MA(12)", "MACD(12,26,9)", "ADX(14)", "RSI(14)", "SO(3,3)", "OBV(20)", "BB(20,2)"]
     response = requests.post(url, json=data)
@@ -146,7 +145,6 @@ def get_technical_indicators_statistics_of_Company(company_code):
             obj = technical_indiactors_statistics(item['Name'], item['Sector'], ma.__dict__ , macd.__dict__,
                                                   adm.__dict__, rsi.__dict__, stoc.__dict__,
                                                   obv.__dict__, bb.__dict__)
-            # arr.append(obj.__dict__)
             return obj.__dict__
         else:
             return None

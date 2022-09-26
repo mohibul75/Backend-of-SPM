@@ -57,11 +57,8 @@ def technical_indicators_staticis(request):
 
 @api_view(['GET'])
 def technical_indicators_statistics_of_Company(request, company_code):
-    print(company_code)
     data = get_technical_indicators_statistics_of_Company(company_code)
-    print(data)
     if data is None:
-        return Response(data = data)
-        #return HttpResponseNotFound('<h1>Page not found</h1>')
+        return HttpResponseNotFound('<h1>Page not found</h1>')
     else:
         return Response(data=data)
