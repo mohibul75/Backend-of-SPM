@@ -18,4 +18,4 @@ RUN pip3 install requests
 #RUN pip3 install --user django-cors-headers
 #RUN python3 manage.py migrate    
 EXPOSE 8001 
-CMD python3 manage.py runserver 0.0.0.0:8001
+CMD python3 manage.py runserver 127.0.0.1:8001
