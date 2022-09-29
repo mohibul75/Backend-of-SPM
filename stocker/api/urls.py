@@ -15,6 +15,7 @@ urlpatterns = [
 
     path('health_indicator/<str:company_name>/', get_health_indicator),
 
-    path('market_summary/<str:company_name>/', get_market_summary_data)
+    path('market_summary/<str:company_name>/', get_market_summary_data),
+    path('get_market_summary_graph/<str:company_name>/<str:datefrom>/', get_market_summary_graph)
 
 ]

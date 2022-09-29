@@ -71,3 +71,8 @@ def get_health_indicator(request, company_name):
 def get_market_summary_data(request,company_name):
     data = get_market_summary_datas(company_name)
     return Response(data=data)
+
+@api_view(['GET'])
+def get_market_summary_graph(request,company_name, datefrom):
+    data = market_summary_graph_data(company_name, datefrom)
+    return Response(data=data)

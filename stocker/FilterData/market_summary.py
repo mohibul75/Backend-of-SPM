@@ -31,3 +31,16 @@ def get_market_summary_datas(company_name):
     return dict_data
 
 
+
+def market_summary_graph_data(company_name, datefrom):
+    dict = []
+    url = f"https://www.amarstock.com/data/afe01cd8b512070a/?scrip={company_name}&cycle=Day1&dtFrom={datefrom}"
+    response = requests.get(url)
+    data = response.json()
+
+    for d in data:
+        dict.append({'Close': d["Close"], 'date': d["DateString"]})
+
+    return dict
+
+
