@@ -1,17 +1,21 @@
 import sys
-
-from django.http import HttpResponseNotFound
+import os
 from django.shortcuts import render
+
+# from os.path import dirname as up
+#
+# two_up = up(up(__file__))
+# # append the path of the parent directory
+sys.path.append("..")
 
 # Create your views here.
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from filterData.FilterDataForPrimaryTable import *
-from filterData.json_for_3_enspoints import *
-
-
+from FilterData.FilterDataForPrimaryTable import *
+from FilterData.json_for_3_enspoints import *
+from FilterData.health_indicator_script_ak import *
 
 @api_view(['GET'])
 def hellow(request):
@@ -58,14 +62,6 @@ def technical_indicators_staticis(request):
     return Response(data=data)
 
 @api_view(['GET'])
-def technical_indicators_statistics_of_Company(request, company_code):
-    data = get_technical_indicators_statistics_of_Company(company_code)
-    if data is None:
-        return HttpResponseNotFound('<h1>Page not found</h1>')
-    else:
-        return Response(data=data)
-
-@api_view(['GET'])
-def historical_data_of_Company(request, company_code):
-    data = get_historical_data_of_Company(company_code)
+def get_health_indicator(request, company_name):
+    data = get_health_indicators(company_name)
     return Response(data=data)
