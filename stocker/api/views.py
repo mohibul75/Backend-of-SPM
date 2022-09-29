@@ -64,3 +64,8 @@ def technical_indicators_statistics_of_Company(request, company_code):
         return HttpResponseNotFound('<h1>Page not found</h1>')
     else:
         return Response(data=data)
+
+@api_view(['GET'])
+def historical_data_of_Company(request, company_code):
+    data = get_historical_data_of_Company(company_code)
+    return Response(data=data)
