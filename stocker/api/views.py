@@ -1,4 +1,6 @@
 import sys
+
+from django.http import HttpResponseNotFound
 from django.shortcuts import render
 
 # Create your views here.
@@ -53,4 +55,17 @@ def cat_gainer_loser(request):
 @api_view(['GET'])
 def technical_indicators_staticis(request):
     data = get_technical_indicators_statistics()
+    return Response(data=data)
+
+@api_view(['GET'])
+def technical_indicators_statistics_of_Company(request, company_code):
+    data = get_technical_indicators_statistics_of_Company(company_code)
+    if data is None:
+        return HttpResponseNotFound('<h1>Page not found</h1>')
+    else:
+        return Response(data=data)
+
+@api_view(['GET'])
+def historical_data_of_Company(request, company_code):
+    data = get_historical_data_of_Company(company_code)
     return Response(data=data)
