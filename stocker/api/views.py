@@ -16,6 +16,7 @@ from rest_framework.response import Response
 from FilterData.FilterDataForPrimaryTable import *
 from FilterData.json_for_3_enspoints import *
 from FilterData.health_indicator_script_ak import *
+from FilterData.market_summary import *
 
 @api_view(['GET'])
 def hellow(request):
@@ -64,4 +65,9 @@ def technical_indicators_staticis(request):
 @api_view(['GET'])
 def get_health_indicator(request, company_name):
     data = get_health_indicators(company_name)
+    return Response(data=data)
+
+@api_view(['GET'])
+def get_market_summary_data(request,company_name):
+    data = get_market_summary_datas(company_name)
     return Response(data=data)
