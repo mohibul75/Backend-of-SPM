@@ -11,6 +11,8 @@ urlpatterns = [
 
     path('cat_todays_value/', cat_todays_value),
     path('cat_compare/', cat_compare),
-    path('cat_gainer_loser/', cat_gainer_loser)
+    path('cat_gainer_loser/', cat_gainer_loser),
+
+    path('health_indicator/<str:company_name>/', get_health_indicator)
 
 ]
