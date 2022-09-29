@@ -70,6 +70,3 @@ def get_health_indicators(company_name):
 
     return dict
 
-
-xys = get_health_indicators("ACI")
-print(xys)
