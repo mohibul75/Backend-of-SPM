@@ -78,7 +78,7 @@ class SMA:
 class BB:
     def __init__(self, upper_value, lower_value, current_prize):
         self.name = "BB"
-        self.value = upper_value + lower_value
+        self.value = upper_value - 2
         if upper_value < current_prize:
             self.interpretation = "oversold"
             self.verdict = "Buy"
@@ -209,7 +209,7 @@ def get_technical_indicators_statistics_of_Company(company_code):
             ma = SMA(item['Indi1'], get_historical_data_of_Company(company_code)['current_price'])
             adm = ADM(item['Indi3'])
             obv = OBV(item['Indi6'], get_historical_data_of_Company(company_code)['change'])
-            bb = STOC("BB", item['Indi7'])
+            bb = BB(item['Indi7']+2, item['Indi7']-2,  get_historical_data_of_Company(company_code)['current_price'])
             arr.append(ma.__dict__)
             arr.append(macd.__dict__)
             arr.append(adm.__dict__)
