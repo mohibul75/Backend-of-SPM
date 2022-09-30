@@ -16,6 +16,8 @@ from rest_framework.response import Response
 from filterData.FilterDataForPrimaryTable import *
 from filterData.json_for_3_enspoints import *
 from filterData.health_indicator_script_ak import *
+from filterData.company_short_name_with_full_name_by_ak import *
+
 
 @api_view(['GET'])
 def hellow(request):
@@ -56,12 +58,20 @@ def cat_gainer_loser(request):
     data = gainer_loser()
     return Response(data=data)
 
+
 @api_view(['GET'])
 def technical_indicators_staticis(request):
     data = get_technical_indicators_statistics()
     return Response(data=data)
 
+
 @api_view(['GET'])
 def get_health_indicator(request, company_name):
     data = get_health_indicators(company_name)
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def get_company_short_name(request):
+    data = get_company_short_name()
     return Response(data=data)
