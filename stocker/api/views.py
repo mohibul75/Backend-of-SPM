@@ -17,6 +17,7 @@ from FilterData.FilterDataForPrimaryTable import *
 from FilterData.json_for_3_enspoints import *
 from FilterData.health_indicator_script_ak import *
 from FilterData.market_summary import *
+from FilterData.company_short_form_with_name import *
 
 @api_view(['GET'])
 def hellow(request):
@@ -92,4 +93,10 @@ def technical_indicators_statistics_of_Company(request, company_code):
 @api_view(['GET'])
 def historical_data_of_Company(request, company_code):
     data = get_historical_data_of_Company(company_code)
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def company_short_name(request):
+    data = get_company_short_name()
     return Response(data=data)
