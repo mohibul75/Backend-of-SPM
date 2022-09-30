@@ -28,6 +28,10 @@ def home_company_data(request):
     data = get_company_statistics()
     return Response(data=data)
 
+@api_view(['GET'])
+def slidebar_data(request):
+    data = get_slidebar_data()
+    return Response(data=data)
 
 @api_view(['GET'])
 def trade_staticis(request):

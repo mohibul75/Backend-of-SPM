@@ -4,7 +4,7 @@ from .views import *
 urlpatterns = [
     path('hellow/', hellow),
     path('spm/', spm),
-
+    path('slidebar/data/', slidebar_data),
     path('home_company_data/', home_company_data),
     path('trade_statistics/', trade_staticis),
     #path('technical_indicators_staticis/', technical_indicators_staticis),

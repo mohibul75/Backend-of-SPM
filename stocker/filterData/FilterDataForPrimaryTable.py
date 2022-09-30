@@ -89,6 +89,7 @@ class BB:
 
 class OBV:
     def __init__(self, value, change):
+        #change or value  0 hole ki hobe bhai!!!!
         self.name = "OBV"
         self.value = value
         if value > 0 and change < 0:
@@ -132,6 +133,14 @@ class object:
         self.percetage = percentage(abs(ycp - ltp), ycp)
 
 
+class slide_bar_data:
+    def __init__(self, trading_code, ltp, ycp, ):
+        self.trading_code = trading_code
+        self.ltp = ltp
+        self.ycp = ycp
+        self.difference = ycp - ltp
+        self.percetage = percentage(abs(ycp - ltp), ycp)
+
 class status:
     def __init__(self, up, down, unchanged, up_percentage, down_percentage, unchanged_percentage):
         self.up = up
@@ -149,6 +158,16 @@ def percentage(part, whole):
         percentage = 100 * float(part) / float(whole)
         return round(percentage, 2)
 
+def get_slidebar_data():
+    arr = []
+    response = requests.get(
+        "https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR3Nnl2tdnlEuJTOlZgH4yBuQR9ngbSg7y70e_kskcaWqwBfdqSkE7E8-II")
+
+    for item in response.json():
+        obj = slide_bar_data(item['Scrip'], item['LTP'], item['YCP'])
+        arr.append(obj.__dict__)
+
+    return arr
 
 def get_company_statistics():
     arr = []
