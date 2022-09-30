@@ -42,5 +42,3 @@ def market_summary_graph_data(company_name, datefrom):
         dict.append({'Close': d["Close"], 'date': d["DateString"]})
 
     return dict
-
-
