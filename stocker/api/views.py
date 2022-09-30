@@ -1,13 +1,21 @@
 import sys
+import os
 from django.shortcuts import render
+
+# from os.path import dirname as up
+#
+# two_up = up(up(__file__))
+# # append the path of the parent directory
+sys.path.append("..")
 
 # Create your views here.
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from FilterData.FilterDataForPrimaryTable import *
-from FilterData.json_for_3_enspoints import *
+from filterData.FilterDataForPrimaryTable import *
+from filterData.json_for_3_enspoints import *
+from filterData.health_indicator_script_ak import *
 
 @api_view(['GET'])
 def hellow(request):
@@ -51,4 +59,9 @@ def cat_gainer_loser(request):
 @api_view(['GET'])
 def technical_indicators_staticis(request):
     data = get_technical_indicators_statistics()
+    return Response(data=data)
+
+@api_view(['GET'])
+def get_health_indicator(request, company_name):
+    data = get_health_indicators(company_name)
     return Response(data=data)
