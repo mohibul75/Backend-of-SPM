@@ -89,7 +89,6 @@ class BB:
 
 class OBV:
     def __init__(self, value, change):
-        #change or value  0 hole ki hobe bhai!!!!
         self.name = "OBV"
         self.value = value
         if value > 0 and change < 0:
