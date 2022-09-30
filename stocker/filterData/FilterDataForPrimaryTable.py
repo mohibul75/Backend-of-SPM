@@ -1,7 +1,5 @@
 import requests
 from datetime import datetime, timedelta
-import json
-
 
 class RSI:
     def __init__(self, value):
@@ -76,9 +74,9 @@ class SMA:
             self.interpretation = "neutral"
             self.verdict = "neutral"
 class BB:
-    def __init__(self, upper_value, lower_value, current_prize):
+    def __init__(self, value, upper_value, lower_value, current_prize):
         self.name = "BB"
-        self.value = upper_value - 2
+        self.value = value
         if upper_value < current_prize:
             self.interpretation = "oversold"
             self.verdict = "Buy"
@@ -91,7 +89,6 @@ class BB:
 
 class OBV:
     def __init__(self, value, change):
-        #change or value  0 hole ki hobe bhai!!!!
         self.name = "OBV"
         self.value = value
         if value > 0 and change < 0:
@@ -199,7 +196,8 @@ def get_technical_indicators_statistics():
 def get_technical_indicators_statistics_of_Company(company_code):
     arr = []
     url = "https://www.amarstock.com/api/grid/scan/simple"
-    data = ["MA(12)", "MACD(12,26,9)", "ADX(14)", "RSI(14)", "SO(3,3)", "OBV(20)", "BB(20,2)"]
+    data = ["MA(12)", "MACD(12,26,9)", "ADX(14)", "RSI(14)", "SO(3,3)", "OBV(20)", "BB(20,2)",
+    "BBWidth(20,2)"]
     response = requests.post(url, json=data)
     for item in response.json():
         if item['Name'] == company_code:
@@ -209,7 +207,7 @@ def get_technical_indicators_statistics_of_Company(company_code):
             ma = SMA(item['Indi1'], get_historical_data_of_Company(company_code)['current_price'])
             adm = ADM(item['Indi3'])
             obv = OBV(item['Indi6'], get_historical_data_of_Company(company_code)['change'])
-            bb = BB(item['Indi7']+2, item['Indi7']-2,  get_historical_data_of_Company(company_code)['current_price'])
+            bb = BB(item['Indi7'],item['Indi7']+item['Indi8']/2, item['Indi7']-item['Indi8']/2,  get_historical_data_of_Company(company_code)['current_price'])
             arr.append(ma.__dict__)
             arr.append(macd.__dict__)
             arr.append(adm.__dict__)
