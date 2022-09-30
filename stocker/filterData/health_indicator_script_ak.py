@@ -46,7 +46,6 @@ def get_dividend_payout_ratio(data):
 
 
 def get_health_indicators(company_name):
-    dict = []
     dict_data = {}
     
     url = "https://www.amarstock.com/data/1258dca00155/" + company_name
@@ -66,7 +65,6 @@ def get_health_indicators(company_name):
     dict_data['dividend_payout_ratio'] = dividend_payout_ratio
     dict_data['dividend_yield'] = dividend_yield
 
-    dict.append(dict_data)
 
-    return dict
+    return dict_data
 
