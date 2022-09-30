@@ -52,10 +52,10 @@ def cat_gainer_loser(request):
     data = gainer_loser()
     return Response(data=data)
 
-@api_view(['GET'])
+'''@api_view(['GET'])
 def technical_indicators_staticis(request):
     data = get_technical_indicators_statistics()
-    return Response(data=data)
+    return Response(data=data)'''
 
 @api_view(['GET'])
 def technical_indicators_statistics_of_Company(request, company_code):

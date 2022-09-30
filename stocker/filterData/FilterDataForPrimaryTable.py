@@ -50,6 +50,44 @@ class MACD:
             self.interpretation = "bearish"
             self.verdict = "sell/neutral"
 
+class ADM:
+    def __init__(self, value):
+        self.name = "ADM"
+        self.value = value
+        if value > 20:
+            self.interpretation = "oversold"
+            self.verdict = "Buy"
+
+        elif value < 20:
+            self.interpretation = "neutral"
+            self.verdict = "neutral"
+class SMA:
+    def __init__(self, value, current_price):
+        self.name = "SMA"
+        self.value = value
+        if value < current_price:
+            self.interpretation = "oversold"
+            self.verdict = "Buy"
+
+        elif value > current_price:
+            self.interpretation = "overbought"
+            self.verdict = "sell"
+        else:
+            self.interpretation = "neutral"
+            self.verdict = "neutral"
+class BB:
+    def __init__(self, upper_value, lower_value, current_prize):
+        self.name = "BB"
+        self.value = upper_value + lower_value
+        if upper_value < current_prize:
+            self.interpretation = "oversold"
+            self.verdict = "Buy"
+        elif lower_value > current_prize:
+            self.interpretation = "overbought"
+            self.verdict = "sell"
+        elif lower_value < current_prize and upper_value > current_prize:
+            self.interpretation = "neutral"
+            self.verdict = "neutral"
 
 class OBV:
     def __init__(self, value, change):
@@ -59,7 +97,9 @@ class OBV:
         if value > 0 and change < 0:
             self.interpretation = "oversold"
             self.verdict = "Buy"
-
+        elif value == 0 or change == 0:
+            self.interpretation = "neutral"
+            self.verdict = "neutral"
         elif value < 0 and change > 0:
             self.interpretation = "overbought"
             self.verdict = "Sell"
@@ -157,25 +197,19 @@ def get_technical_indicators_statistics():
 
 
 def get_technical_indicators_statistics_of_Company(company_code):
-    #print(get_historical_data_of_Company(company_code).__dict__['change'])
     arr = []
     url = "https://www.amarstock.com/api/grid/scan/simple"
     data = ["MA(12)", "MACD(12,26,9)", "ADX(14)", "RSI(14)", "SO(3,3)", "OBV(20)", "BB(20,2)"]
     response = requests.post(url, json=data)
-    #print(response.__sizeof__())
     for item in response.json():
         if item['Name'] == company_code:
-            #print(item)
             rsi = RSI(item['Indi4'])
             stoc = STOC("STOC", item['Indi5'])
             macd = MACD(item['Indi2'], item['Indi1'])
-            ma = STOC("SMA", item['Indi1'])
-            adm = STOC("ADM", item['Indi3'])
-            #obv = macd(2,3)
+            ma = SMA(item['Indi1'], get_historical_data_of_Company(company_code)['current_price'])
+            adm = ADM(item['Indi3'])
             obv = OBV(item['Indi6'], get_historical_data_of_Company(company_code)['change'])
             bb = STOC("BB", item['Indi7'])
-        #print(bb.__dict__)
-        #if item['Name'] == company_code:
             arr.append(ma.__dict__)
             arr.append(macd.__dict__)
             arr.append(adm.__dict__)
@@ -183,7 +217,6 @@ def get_technical_indicators_statistics_of_Company(company_code):
             arr.append(stoc.__dict__)
             arr.append(obv.__dict__)
             arr.append(bb.__dict__)
-            #print(obv.__dict__)
             return arr
     return None
 
@@ -201,46 +234,28 @@ class requred_company_data:
 
 
 def get_historical_data_of_Company(company_code):
-    # company_code = "BEXIMCO"
-    # today = datetime.today().isoformat()
     closing_price_for_last_10_days = []
     company_ltp = ""
     today = datetime.now()
-    # print("Date: ",today)
     n_day_before = (today - timedelta(days=10)).isoformat()
-    # print("10 days before date: ", n_day_before)
-    yesterday = (today - timedelta(days=1)).isoformat()
-    # print("yesterday: ", yesterday)
     url = "https://www.amarstock.com/data/afe01cd8b512070a/?scrip=" + company_code + "&cycle=Day1&dtFrom=" + n_day_before
-    # print("url: ", url)
     response = requests.get(url)
+    arr = []
     for item in response.json():
-        # print("closing price of: ", item['DateString'], " is ", item['Close'])
+        arr.append(item)
         closing_price_for_last_10_days.append(item['Close'])
-
-    # print("closing price of: ", company_code, " for last 10 days:", closing_price_for_last_10_days)
     response_for_ltp = requests.get(
         "https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR3Nnl2tdnlEuJTOlZgH4yBuQR9ngbSg7y70e_kskcaWqwBfdqSkE7E8-II")
 
     for item in response_for_ltp.json():
         if item['Scrip'] == company_code:
             company_ltp = item['LTP']
-            # print("Company Code: ", item['Scrip'], " LTP: ", company_ltp)
-
-    url_for_todays_company_status = "https://www.amarstock.com/data/afe01cd8b512070a/?scrip=" + company_code + "&cycle=Day1&dtFrom=" + today.isoformat()
-    todays_satus_response = requests.get(url_for_todays_company_status)
-    todays_status_response_data = todays_satus_response.json()
-    todays_status_response_data = todays_status_response_data[0]
+    todays_status_response_data = arr[-1]
     requred_company_historical_data = requred_company_data(todays_status_response_data['Scrip'], company_ltp,
                                                            todays_status_response_data['Close'],
                                                            todays_status_response_data['High'],
                                                            todays_status_response_data['Low'],
                                                            todays_status_response_data['Change'],
                                                            closing_price_for_last_10_days)
-    # print(requred_company_historical_data.__dict__)
+
     return requred_company_historical_data.__dict__
-
-    # obj = object(item['FullName'], item['LTP'], item['Close'], item['Change'], item['YCP'])
-
-    # url_for_company_ltp = "https://www.amarstock.com/LatestPrice/34267d8d73dd"
-    # print(requests.get(url_for_company_ltp).json())
