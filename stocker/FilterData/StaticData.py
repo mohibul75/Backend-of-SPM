@@ -72,4 +72,4 @@ def StaticData():
     return json.dumps(all_json_list)
 
 
-
+print(StaticData())
