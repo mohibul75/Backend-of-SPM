@@ -17,6 +17,7 @@ from FilterData.FilterDataForPrimaryTable import *
 from FilterData.json_for_3_enspoints import *
 from FilterData.health_indicator_script_ak import *
 from FilterData.market_summary import *
+from FilterData.company_short_form_with_name import *
 
 @api_view(['GET'])
 def hellow(request):
@@ -57,15 +58,18 @@ def cat_gainer_loser(request):
     data = gainer_loser()
     return Response(data=data)
 
-@api_view(['GET'])
-def technical_indicators_staticis(request):
-    data = get_technical_indicators_statistics()
-    return Response(data=data)
+
+# @api_view(['GET'])
+# def technical_indicators_staticis(request):
+#     data = get_technical_indicators_statistics()
+#     return Response(data=data)
+
 
 @api_view(['GET'])
 def get_health_indicator(request, company_name):
     data = get_health_indicators(company_name)
     return Response(data=data)
+
 
 @api_view(['GET'])
 def get_market_summary_data(request,company_name):
@@ -75,4 +79,30 @@ def get_market_summary_data(request,company_name):
 @api_view(['GET'])
 def get_market_summary_graph(request,company_name, datefrom):
     data = market_summary_graph_data(company_name, datefrom)
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def technical_indicators_statistics_of_Company(request, company_code):
+    data = get_technical_indicators_statistics_of_Company(company_code)
+    if data is None:
+        return HttpResponseNotFound('<h1>Page not found</h1>')
+    else:
+        return Response(data=data)
+
+@api_view(['GET'])
+def historical_data_of_Company(request, company_code):
+    data = get_historical_data_of_Company(company_code)
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def company_short_name(request):
+    data = get_company_short_name()
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def slidebar_data(request):
+    data = get_slidebar_data()
     return Response(data=data)
