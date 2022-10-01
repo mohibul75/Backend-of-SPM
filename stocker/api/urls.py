@@ -22,5 +22,6 @@ urlpatterns = [
     path('technical_indicators_staticis/<str:company_code>/', technical_indicators_statistics_of_Company),
     path('historical_data_of_Company/<str:company_code>/', historical_data_of_Company),
 
-    path('all_company_short_name', company_short_name)
+    path('all_company_short_name', company_short_name),
+    path('slidebar/data/', slidebar_data),
 ]

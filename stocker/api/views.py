@@ -100,3 +100,9 @@ def historical_data_of_Company(request, company_code):
 def company_short_name(request):
     data = get_company_short_name()
     return Response(data=data)
+
+
+@api_view(['GET'])
+def slidebar_data(request):
+    data = get_slidebar_data()
+    return Response(data=data)
