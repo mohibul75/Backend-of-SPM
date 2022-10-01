@@ -35,7 +35,7 @@ def company_short_form_generator():
 
 
 def get_company_short_name():
-    with open('stocker\FilterData\company_name_with_short_name.json', 'r') as openfile:
+    with open('company_name_with_short_name.json', 'r') as openfile:
         json_object = json.load(openfile)
 
     return json_object
