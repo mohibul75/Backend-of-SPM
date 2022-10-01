@@ -98,7 +98,7 @@ def historical_data_of_Company(request, company_code):
 
 @api_view(['GET'])
 def company_short_name(request):
-    data = get_company_short_name()
+    data = company_short_form_generator()
     return Response(data=data)
 
 
