@@ -29,4 +29,9 @@ urlpatterns = [
     path('macd_graph/<str:company_code>/', MACDgraph),
     path('rsi_graph/<str:company_code>/', RSIgraph),
     path('dY_MACD_PE/<str:company_code>/', dY_MACD_PE),
+
+    path('bollingerBand/<str:company_code>/', bollingerBand),
+    path('stochastic/<str:company_code>/', stochastic),
+    path('averageDirectionalIndex/<str:company_code>/', averageDirectionalIndex),
+    path('ovp/<str:company_code>/', ovp),
 ]

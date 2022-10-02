@@ -19,6 +19,8 @@ from FilterData.health_indicator_script_ak import *
 from FilterData.market_summary import *
 from FilterData.company_short_form_with_name import *
 from FilterData.technical_indicator_graph_ifty import *
+from FilterData.technical_indicator_dip import *
+
 
 @api_view(['GET'])
 def hellow(request):
@@ -130,4 +132,28 @@ def RSIgraph(request, company_code):
 @api_view(['GET'])
 def dY_MACD_PE(request, company_code):
     data = getdY_MACD_PE(company_code)
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def bollingerBand(request, company_code):
+    data = getBollingerBand(company_code)
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def stochastic(request, company_code):
+    data = getStochastic(company_code)
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def averageDirectionalIndex(request, company_code):
+    data = getAverageDirectionalIndex(company_code)
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def ovp(request, company_code):
+    data = getOBV(company_code)
     return Response(data=data)
