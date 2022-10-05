@@ -29,7 +29,7 @@ def getMovingAverage(companyId):
 
 
 def getMACD(companyId):
-    result_macd = {}
+    result_macd = defaultdict(list)
     response2 = requests.get(
         f"https://www.amarstock.com/data/afe01cd8b512070a/?scrip={companyId}&cycle=Day1&dtFrom=2016-12-15T05%3A02%3A13.318Z&fbclid=IwAR0qZBhgiqSV6L6xTerlCEsXvVwtaLMaQvTqqMfUmjloMfBO2jocwV95DE8")
     if (response2.status_code == 200):
@@ -54,11 +54,13 @@ def getMACD(companyId):
     close_p['macd'] = df.index.map(macd)
     close_p['macd_h'] = df.index.map(macd_h)
     close_p['signal'] = df.index.map(macd_s)
-    final_macd = close_p[['DateEpoch', 'macd']].copy()
+    final_macd = close_p[['DateEpoch', 'macd', 'signal', 'macd_h']].copy()
     final_macd = final_macd.dropna()
     final_macd.reset_index(inplace=True)
     for i in range(len(final_macd)):
-        result_macd[str(final_macd.loc[i, 'DateEpoch'])] = final_macd.loc[i, 'macd']
+        result_macd[str(final_macd.loc[i, 'DateEpoch'])].append(final_macd.loc[i, 'macd'])
+        result_macd[str(final_macd.loc[i, 'DateEpoch'])].append(final_macd.loc[i, 'signal'])
+        result_macd[str(final_macd.loc[i, 'DateEpoch'])].append(final_macd.loc[i, 'macd_h'])
     return result_macd
 
 
