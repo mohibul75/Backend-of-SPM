@@ -49,6 +49,7 @@ jobs:
               cd spm
               sudo docker-compose stop
               sudo docker-compose rm -f
+              sudo docker image rm $(docker image ls -a -q)
               sudo docker-compose pull   
               sudo docker-compose up -d
         host: ${{ secrets.HOSTNAME  }}
