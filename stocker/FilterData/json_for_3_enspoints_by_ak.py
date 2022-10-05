@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 def get_gainer_loser_percentage(x, y, z):
     return f"{(x*100)/(x + y + z):.2f}"
 
@@ -12,7 +13,9 @@ def get_yesterday_value_percentage(todays_percentage, yesterdays_value, todays_v
 
 
 def todays_value():
-
+    response = requests.get("https://www.amarstock.com//info/sector/composition")
+    data = response.json()
+    
     dict = []
 
     total_value = sum(data['Value'])
@@ -28,7 +31,9 @@ def todays_value():
   
    
 def compare():
-
+    response = requests.get("https://www.amarstock.com//info/sector/composition")
+    data = response.json()
+    
     dict = []
 
     total_todays_value = sum(data['Value'])
@@ -49,7 +54,9 @@ def compare():
 
 
 def gainer_loser():
-
+    response = requests.get("https://www.amarstock.com//info/sector/composition")
+    data = response.json()
+    
     dict = []
     
     for i in range(len(data['Category'])): 
@@ -67,6 +74,3 @@ def gainer_loser():
 
     return dict
     
-
-response = requests.get("https://www.amarstock.com//info/sector/composition")
-data = response.json()
