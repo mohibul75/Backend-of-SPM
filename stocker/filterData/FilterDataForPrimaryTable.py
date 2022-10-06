@@ -217,15 +217,17 @@ def get_technical_indicators_statistics_of_Company(company_code):
     data = ["MA(12)", "MACD(12,26,9)", "ADX(14)", "RSI(14)", "SO(3,3)", "OBV(20)", "BB(20,2)",
     "BBWidth(20,2)"]
     response = requests.post(url, json=data)
+    historical_data_of_company = get_historical_data_of_Company(company_code=company_code)
+
     for item in response.json():
         if item['Name'] == company_code:
             rsi = RSI(item['Indi4'])
             stoc = STOC("STOC", item['Indi5'])
             macd = MACD(item['Indi2'], item['Indi1'])
-            ma = SMA(item['Indi1'], get_historical_data_of_Company(company_code)['current_price'])
+            ma = SMA(item['Indi1'], historical_data_of_company['current_price'])
             adm = ADM(item['Indi3'])
-            obv = OBV(item['Indi6'], get_historical_data_of_Company(company_code)['change'])
-            bb = BB(item['Indi7'],item['Indi7']+item['Indi8']/2, item['Indi7']-item['Indi8']/2,  get_historical_data_of_Company(company_code)['current_price'])
+            obv = OBV(item['Indi6'], historical_data_of_company['change'])
+            bb = BB(item['Indi7'],item['Indi7']+item['Indi8']/2, item['Indi7']-item['Indi8']/2,  historical_data_of_company['current_price'])
             arr.append(ma.__dict__)
             arr.append(macd.__dict__)
             arr.append(adm.__dict__)
