@@ -1,5 +1,7 @@
 import requests
 from datetime import datetime, timedelta
+import json
+
 
 class RSI:
     def __init__(self, value):
@@ -122,13 +124,12 @@ class technical_indiactors_statistics:
 
 
 class object:
-    def __init__(self, trading_code, ltp, closep, change, ycp, scrip ):
+    def __init__(self, trading_code, ltp, closep, change, ycp, ):
         self.trading_code = trading_code
         self.ltp = ltp
         self.closep = closep
         self.change = change
         self.ycp = ycp
-        self.scrip = scrip
         self.difference = ycp - ltp
         self.percetage = percentage(abs(ycp - ltp), ycp)
 
@@ -175,7 +176,7 @@ def get_company_statistics():
         "https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR3Nnl2tdnlEuJTOlZgH4yBuQR9ngbSg7y70e_kskcaWqwBfdqSkE7E8-II")
 
     for item in response.json():
-        obj = object(item['FullName'], item['LTP'], item['Close'], item['Change'], item['YCP'], item['Scrip'])
+        obj = object(item['FullName'], item['LTP'], item['Close'], item['Change'], item['YCP'])
         arr.append(obj.__dict__)
 
     return arr
@@ -218,15 +219,17 @@ def get_technical_indicators_statistics_of_Company(company_code):
     data = ["MA(12)", "MACD(12,26,9)", "ADX(14)", "RSI(14)", "SO(3,3)", "OBV(20)", "BB(20,2)",
     "BBWidth(20,2)"]
     response = requests.post(url, json=data)
+    historical_data_of_company = get_historical_data_of_Company(company_code=company_code)
+
     for item in response.json():
         if item['Name'] == company_code:
             rsi = RSI(item['Indi4'])
             stoc = STOC("STOC", item['Indi5'])
             macd = MACD(item['Indi2'], item['Indi1'])
-            ma = SMA(item['Indi1'], get_historical_data_of_Company(company_code)['current_price'])
+            ma = SMA(item['Indi1'], historical_data_of_company['current_price'])
             adm = ADM(item['Indi3'])
-            obv = OBV(item['Indi6'], get_historical_data_of_Company(company_code)['change'])
-            bb = BB(item['Indi7'],item['Indi7']+item['Indi8']/2, item['Indi7']-item['Indi8']/2,  get_historical_data_of_Company(company_code)['current_price'])
+            obv = OBV(item['Indi6'], historical_data_of_company['change'])
+            bb = BB(item['Indi7'],item['Indi7']+item['Indi8']/2, item['Indi7']-item['Indi8']/2,  historical_data_of_company['current_price'])
             arr.append(ma.__dict__)
             arr.append(macd.__dict__)
             arr.append(adm.__dict__)
@@ -254,11 +257,15 @@ def get_historical_data_of_Company(company_code):
     closing_price_for_last_10_days = []
     company_ltp = ""
     today = datetime.now()
-    n_day_before = (today - timedelta(days=10)).isoformat()
+    n_day_before = (today - timedelta(days=15)).isoformat()
     url = "https://www.amarstock.com/data/afe01cd8b512070a/?scrip=" + company_code + "&cycle=Day1&dtFrom=" + n_day_before
     response = requests.get(url)
     arr = []
+    count = 0
     for item in response.json():
+        count = count + 1
+        if count >=10:
+            break
         arr.append(item)
         closing_price_for_last_10_days.append(item['Close'])
     response_for_ltp = requests.get(
