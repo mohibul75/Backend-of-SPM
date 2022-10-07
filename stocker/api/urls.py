@@ -34,4 +34,5 @@ urlpatterns = [
     path('stochastic/<str:company_code>/', stochastic),
     path('averageDirectionalIndex/<str:company_code>/', averageDirectionalIndex),
     path('ovp/<str:company_code>/', ovp),
+    path('candle_graph/<str:company_code>/', candle_graph)
 ]
