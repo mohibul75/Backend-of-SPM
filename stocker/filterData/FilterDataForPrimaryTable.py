@@ -255,11 +255,15 @@ def get_historical_data_of_Company(company_code):
     closing_price_for_last_10_days = []
     company_ltp = ""
     today = datetime.now()
-    n_day_before = (today - timedelta(days=10)).isoformat()
+    n_day_before = (today - timedelta(days=15)).isoformat()
     url = "https://www.amarstock.com/data/afe01cd8b512070a/?scrip=" + company_code + "&cycle=Day1&dtFrom=" + n_day_before
     response = requests.get(url)
     arr = []
+    count = 0
     for item in response.json():
+        count = count + 1
+        if count >=10:
+            break
         arr.append(item)
         closing_price_for_last_10_days.append(item['Close'])
     response_for_ltp = requests.get(
