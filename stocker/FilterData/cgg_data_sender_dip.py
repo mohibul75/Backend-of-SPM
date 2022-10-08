@@ -7,39 +7,28 @@ def fetchData(companyId):
         todos2 = json.loads(response2.text)
     return todos2
 
-class CGGData():
-    def __init__(self, values) -> None:
-        self.ShareHoldingPercentage = values[0]
-        self.SponsorDirector = values[1]
-        self.Govt = values[2]
-        self.Institute = values[3]
-        self.Foreign = values[4]
-        self.Public = values[5]
-
 def getRequiredColumns(columnNames):
     requiredColumnNames = []
     for columnName in  columnNames:
-        if columnName[:-2] in "ShareHoldingPercentage" or columnName[:-2] in "SponsorDirector" or columnName[:-2] in "Govt" or columnName[:-2] in "Institute" or columnName[:-2] in "Foreign" or columnName[:-2] in "Public":
+        if "ShareHoldingPercentage" in columnName or "SponsorDirector" in columnName or "Govt" in columnName or "Institute" in columnName or "Foreign" in columnName or "Public" in columnName:
             requiredColumnNames.append(columnName)
-    requiredColumnNames = requiredColumnNames[:-1]
     return requiredColumnNames
 
-def createCGGDataObjectArray(data, requiredColumnNames):
-    ccgDataObjectArray = []
+def convertDict2DataFrame(data, requiredColumnNames):
+    df = pd.DataFrame(columns=['ShareHoldingPercentage', 'SponsorDirector', 'Govt', 'Institute', 'Foreign', 'Public'])
     iterCount = int(len(requiredColumnNames)/6)
     for i in range(iterCount):
         values = [data[key] for key in requiredColumnNames[i*6:i*6+6]]
-        cggData = CGGData(values)
-        values = []
-        ccgDataObjectArray.append(cggData)
-    return ccgDataObjectArray
+        df.loc[len(df)] = values
+    return df
 
-def getCCGDataObject(companyId):
+def getCCGData(companyId):
     data = fetchData(companyId)
     columnNames = list(data.keys())
     requiredColumnNames = getRequiredColumns(columnNames)
-    ccgDataObjectArray = createCGGDataObjectArray(data, requiredColumnNames)
-    return ccgDataObjectArray
+    ccgData = dict((key, data[key]) for key in requiredColumnNames)
+    ccgData = convertDict2DataFrame(ccgData, requiredColumnNames)
+    ccgData.rename(columns = {'ShareHoldingPercentage':'x'}, inplace = True)
+    ccgData['y'] = ccgData[['SponsorDirector', 'Govt', 'Institute', 'Foreign', 'Public']].values.tolist()
+    return list(ccgData[['x', 'y']].T.to_dict().values())
 
-output = getCCGDataObject("BEXIMCO")
-print(output)
