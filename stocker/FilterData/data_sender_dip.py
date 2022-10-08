@@ -16,5 +16,3 @@ def getCandleData(companyId):
     df['y'] = df[['Open', 'High', 'Low', 'Close']].values.tolist()
     return list(df[['x', 'y']].T.to_dict().values())
 
-df = getCandleData("BEXIMCO")
-print(df)

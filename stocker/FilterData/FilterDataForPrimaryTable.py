@@ -124,12 +124,13 @@ class technical_indiactors_statistics:
 
 
 class object:
-    def __init__(self, trading_code, ltp, closep, change, ycp, ):
+    def __init__(self, trading_code, ltp, closep, change, ycp, scrip):
         self.trading_code = trading_code
         self.ltp = ltp
         self.closep = closep
         self.change = change
         self.ycp = ycp
+        self.scrip = scrip
         self.difference = ycp - ltp
         self.percetage = percentage(abs(ycp - ltp), ycp)
 
@@ -176,7 +177,7 @@ def get_company_statistics():
         "https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR3Nnl2tdnlEuJTOlZgH4yBuQR9ngbSg7y70e_kskcaWqwBfdqSkE7E8-II")
 
     for item in response.json():
-        obj = object(item['FullName'], item['LTP'], item['Close'], item['Change'], item['YCP'])
+        obj = object(item['FullName'], item['LTP'], item['Close'], item['Change'], item['YCP'], item['Scrip'])
         arr.append(obj.__dict__)
 
     return arr
