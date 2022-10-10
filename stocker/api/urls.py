@@ -34,5 +34,9 @@ urlpatterns = [
     path('stochastic/<str:company_code>/', stochastic),
     path('averageDirectionalIndex/<str:company_code>/', averageDirectionalIndex),
     path('ovp/<str:company_code>/', ovp),
-    path('candle_graph/<str:company_code>/', candle_graph)
+    path('candle_graph/<str:company_code>/', candle_graph),
+
+    path('shareholder_data/<str:company_code>/', get_cgg_data),
+    # path('last_10_days_update/', last_10_days_update),
+    # path('market_category/', market_category)
 ]

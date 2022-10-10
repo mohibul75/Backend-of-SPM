@@ -21,6 +21,7 @@ from FilterData.company_short_form_with_name import *
 from FilterData.technical_indicator_graph_ifty import *
 from FilterData.technical_indicator_dip import *
 from FilterData.data_sender_dip import *
+from FilterData.cgg_data_sender_dip import *
 
 
 @api_view(['GET'])
@@ -158,3 +159,21 @@ def ovp(request, company_code):
 def candle_graph(request, company_code):
     data = getCandleData(company_code)
     return Response(data=data)
+
+
+@api_view(['GET'])
+def get_cgg_data(request, company_code):
+    data = getCCGData(company_code)
+    return Response(data=data)
+
+
+# @api_view(['GET'])
+# def last_10_days_update(request):
+#     data = Last_ten_days_price_update()
+#     return Response(data = data)
+
+
+# @api_view(['GET'])
+# def market_category(request):
+#     data = Market_category()
+#     return Response(data=data)

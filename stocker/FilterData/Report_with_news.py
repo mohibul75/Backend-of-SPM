@@ -11,7 +11,7 @@ def Report_with_news():
 		todos = json.loads(response.text)
 		#print(todos[0])
 		companyList = len(todos)
-		print(companyList)
+		# print(companyList)
 
 		count = 0
 		all_json_list = []
@@ -29,7 +29,7 @@ def Report_with_news():
 					break
 
 				reportLen = len(todos3)
-				print(reportLen)
+				# print(reportLen)
 
 				jdata = {
 
@@ -68,8 +68,8 @@ def Report_with_news():
 					num += 1
 
 
-				print(jdata)
-				print("\n\n")
+				# print(jdata)
+				# print("\n\n")
 				# break
 				all_json_list.append(jdata)
 				# count= count+1
@@ -79,4 +79,4 @@ def Report_with_news():
 				
 	return json.dumps(all_json_list)
 			
-Report_with_news()
+print(Report_with_news())

@@ -11,7 +11,7 @@ def Company_description():
 		todos = json.loads(response.text)
 		#print(todos[0])
 		companyList = len(todos)
-		print(companyList)
+		# print(companyList)
 
 		count = 0
 		all_json_list = []
@@ -37,7 +37,7 @@ def Company_description():
 						
 
 				}
-				print(jdata)
+				# print(jdata)
 				all_json_list.append(jdata)
 				# count= count+1
 
@@ -46,4 +46,4 @@ def Company_description():
 				
 	return json.dumps(all_json_list)
 			
-Company_description()
+print(Company_description())

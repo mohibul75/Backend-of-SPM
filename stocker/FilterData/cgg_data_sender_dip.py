@@ -28,7 +28,6 @@ def getCCGData(companyId):
     requiredColumnNames = getRequiredColumns(columnNames)
     ccgData = dict((key, data[key]) for key in requiredColumnNames)
     ccgData = convertDict2DataFrame(ccgData, requiredColumnNames)
-    ccgData.rename(columns = {'ShareHoldingPercentage':'x'}, inplace = True)
-    ccgData['y'] = ccgData[['SponsorDirector', 'Govt', 'Institute', 'Foreign', 'Public']].values.tolist()
-    return list(ccgData[['x', 'y']].T.to_dict().values())
+    result = ccgData.to_json(orient="records")
+    return json.loads(result)
 
