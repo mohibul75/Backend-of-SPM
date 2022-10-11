@@ -20,21 +20,21 @@ def Market_category(id:str):
 		companyList = len(todos)
 		print(companyList)
 
-		count = 0
-		all_json_list={}
+        count = 0
+        all_json_list = {}
 
-		all_json_list["A"] = []
-		all_json_list["B"] = []
-		all_json_list["N"] = []
-		all_json_list["Z"] = []
-		all_json_list["null"] = []
+        all_json_list["A"] = []
+        all_json_list["B"] = []
+        all_json_list["N"] = []
+        all_json_list["Z"] = []
+        all_json_list["null"] = []
 
 		for x in todos:
 			
 			if (todos2["MarketCategory"]==x["MarketCategory"]):  
 
-				category=""
-				# print(companyId)
+                category = ""
+                # print(companyId)
 
 				if (x["MarketCategory"]== "A"):
 					category= "A"
