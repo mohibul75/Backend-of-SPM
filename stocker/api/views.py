@@ -170,13 +170,13 @@ def get_cgg_data(request, company_code):
 
 
 @api_view(['GET'])
-def report_with_news(request, company_code):
+def reportWithNews(request, company_code):
     data = report_with_news(company_code)
     return Response(data=data)
 
 
 @api_view(['GET'])
-def company_description(request, company_code):
+def companyDescription(request, company_code):
     data = company_description(company_code)
     return Response(data=data)
 

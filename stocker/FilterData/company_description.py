@@ -18,8 +18,8 @@ def company_description(id):
 
 	
 	companyId = id
-				
-	response2 = requests.get("https://www.amarstock.com/data/1258dca00155/"+ companyId )
+	url = "https://www.amarstock.com/data/1258dca00155/" + companyId			
+	response2 = requests.get(url)
 	if (response2.status_code == 200):  
 		todos2 = json.loads(response2.text)
 		if todos2 is None:
@@ -47,4 +47,4 @@ def company_description(id):
 	return json.dumps(all_json_list)
 			
 #Company_description()
-# print(Company_description("BBSCABLES"))
+# print(company_description("ACI"))
