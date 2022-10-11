@@ -24,6 +24,8 @@ from FilterData.data_sender_dip import *
 from FilterData.cgg_data_sender_dip import *
 from FilterData.Report_with_news import *
 from FilterData.company_description import *
+from FilterData.Market_category import *
+from FilterData.ML import *
 
 
 @api_view(['GET'])
@@ -179,6 +181,26 @@ def reportWithNews(request, company_code):
 def companyDescription(request, company_code):
     data = company_description(company_code)
     return Response(data=data)
+
+
+@api_view(['GET'])
+def marketCategory(request, id):
+    data = market_category(id)
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def overallMarketDetails(request):
+    data = overall_market_details()
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def prediction(request, id, days):
+    data = ml_prediction(id, days)
+    return Response(data=data)
+
+
 
 # @api_view(['GET'])
 # def last_10_days_update(request):
