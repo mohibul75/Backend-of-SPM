@@ -37,6 +37,10 @@ urlpatterns = [
     path('candle_graph/<str:company_code>/', candle_graph),
 
     path('shareholder_data/<str:company_code>/', get_cgg_data),
+    
+    path('report_with_news/<str:company_code>/', report_with_news),
+    path('company_description/<str:company_code>/', company_description),
+    
     # path('last_10_days_update/', last_10_days_update),
     # path('market_category/', market_category)
 ]

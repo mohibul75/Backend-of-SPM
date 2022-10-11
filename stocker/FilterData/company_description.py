@@ -3,7 +3,7 @@ import requests
 import csv
 import array as arr
 
-def Company_description(id:str):
+def company_description(id):
 	#pass
 	# response = requests.get("https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR0UNljsm-ezbNkKryoHblOkrZNNzdjUGad6lcqQEydQbKuP7TRbZHYOFr4")
 	# response.raise_for_status()
@@ -47,4 +47,4 @@ def Company_description(id:str):
 	return json.dumps(all_json_list)
 			
 #Company_description()
-print(Company_description("BBSCABLES"))
+# print(Company_description("BBSCABLES"))

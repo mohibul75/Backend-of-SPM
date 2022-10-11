@@ -22,6 +22,8 @@ from FilterData.technical_indicator_graph_ifty import *
 from FilterData.technical_indicator_dip import *
 from FilterData.data_sender_dip import *
 from FilterData.cgg_data_sender_dip import *
+from FilterData.Report_with_news import *
+from FilterData.company_description import *
 
 
 @api_view(['GET'])
@@ -166,6 +168,17 @@ def get_cgg_data(request, company_code):
     data = getCCGData(company_code)
     return Response(data=data)
 
+
+@api_view(['GET'])
+def report_with_news(request, company_code):
+    data = report_with_news(company_code)
+    return Response(data=data)
+
+
+@api_view(['GET'])
+def company_description(request, company_code):
+    data = company_description(company_code)
+    return Response(data=data)
 
 # @api_view(['GET'])
 # def last_10_days_update(request):
