@@ -1,7 +1,10 @@
 import json
 import requests
+import datetime
+
 import csv
 import array as arr
+
 
 # def Market_category(id:str):
 # 	#pass
@@ -115,4 +118,42 @@ import array as arr
 # print(Market_category("BBSCABLES"))
 
 def market_category(id):
-	return ["ACI", "AOL", "1JANATAMF", "EHL", "BIFC", "BEXIMCO", "BBS"]
+    # make this an endpoint
+    # this requires changes
+    return ["ACI", "AOL", "1JANATAMF", "EHL", "BIFC", "BEXIMCO", "BBS"]
+
+
+def overall_market_details():
+    # make this an endpoint
+    to_return = {}
+    resp = requests.get("https://www.amarstock.com/Info/DSE")
+    data = resp.json()
+
+    now = datetime.datetime.now().year
+    resp2 = requests.get(
+        f"https://www.amarstock.com/data/afe01cd8b512070a/?scrip=ACI&cycle=Day1&dtFrom={now}-1-1T12:10:11.866Z")
+    data2 = resp2.json()
+
+    to_return['TotalTrade'] = data['TotalTrade']
+    to_return['TotalVolume'] = data['TotalVolume']
+    to_return['TotalValue'] = data['TotalValue']
+    to_return['ListedCompanies'] = get_total_companies()
+    to_return['TotalTradingDay'] = len(data2)
+    to_return['AvgTurnOver'] = round(float(data['TotalValue']) * 1000000 / float(data['TotalTrade']))
+
+    return to_return
+
+
+def get_total_companies():
+    response = requests.get("https://www.amarstock.com/LatestPrice/34267d8d73dd")
+    response.raise_for_status()
+    if response.status_code == 200:
+        todos = json.loads(response.text)
+        all_company_list = []
+        for x in todos:
+            companyId = x['Scrip']
+            all_company_list.append(companyId)
+    return len(all_company_list)
+
+
+print(overall_market_details())
