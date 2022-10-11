@@ -7,6 +7,9 @@ def get_market_summary_datas(company_name):
     response = requests.get(url)
     data = response.json()
 
+    response3 = requests.get("https://www.amarstock.com/info/getreturn?symbol=" + company_name)
+    todos3 = response3.json()
+
     dict_data['YCP'] = data['YCP']
     dict_data['OpenPrice'] = data['OpenPrice']
     dict_data['Q1Eps'] = data['Q1Eps']
@@ -21,11 +24,13 @@ def get_market_summary_datas(company_name):
     dict_data['ListingYear'] = data['ListingYear']
     dict_data['MarketCategory'] = data['MarketCategory']
     dict_data['Volume'] = data['Volume']
-    dict_data['MCCAP'] = '7236723'
-    dict_data['6M_Return'] = '2732'
-    dict_data['1Y_Return'] = '2637263'
-    dict_data['Total_shares'] = '7237847'
+    dict_data['MCCAP'] = data['MarketCap']
+    dict_data['6M_Return'] = todos3["6Month"]
+    dict_data['1Y_Return'] = todos3["1Year"]
+    dict_data['Total_shares'] = data['TotalSecurities']
     dict_data['Credit_rating'] = 'N/A'
+    dict_data['Year_end'] = 'June 30'
+    dict_data['Debut_trading_date'] = ""
 
 
     return dict_data
@@ -44,3 +49,4 @@ def market_summary_graph_data(company_name, datefrom):
     return dict
 
 
+print(get_market_summary_datas("ACI"))
