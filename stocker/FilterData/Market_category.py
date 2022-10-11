@@ -3,8 +3,15 @@ import requests
 import csv
 import array as arr
 
-def Market_category():
+def Market_category(id:str):
 	#pass
+	companyId = id
+	response2 = requests.get("https://www.amarstock.com/data/1258dca00155/"+ companyId )
+	if (response2.status_code == 200):  
+		todos2 = json.loads(response2.text)
+		if todos2 is None:
+			return ''
+
 	response = requests.get("https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR0UNljsm-ezbNkKryoHblOkrZNNzdjUGad6lcqQEydQbKuP7TRbZHYOFr4")
 	response.raise_for_status()
 	if (response.status_code == 200):  
@@ -23,18 +30,13 @@ def Market_category():
 		all_json_list["null"] = []
 
 		for x in todos:
-			companyId = x['Scrip']
-				
-			response2 = requests.get("https://www.amarstock.com/data/1258dca00155/"+ companyId )
-			if (response2.status_code == 200):  
-				todos2 = json.loads(response2.text)
-				if todos2 is None:
-					break
+			
+			if (todos2["MarketCategory"]==x["MarketCategory"]):  
 
 				category=""
 				# print(companyId)
 
-				if (todos2["MarketCategory"]== "A"):
+				if (x["MarketCategory"]== "A"):
 					category= "A"
 					jdata={
 						
@@ -47,7 +49,7 @@ def Market_category():
 					all_json_list[category].append(jdata)
 
 
-				elif (todos2["MarketCategory"]== "B"):
+				elif (x["MarketCategory"]== "B"):
 					category= "B"
 					jdata={
 						
@@ -59,7 +61,7 @@ def Market_category():
 					}
 					all_json_list[category].append(jdata)
 
-				elif (todos2["MarketCategory"]== "N"):
+				elif (x["MarketCategory"]== "N"):
 					category= "N"
 					jdata={
 						
@@ -71,7 +73,7 @@ def Market_category():
 					}
 					all_json_list[category].append(jdata)
 
-				elif (todos2["MarketCategory"]== "Z"):
+				elif (x["MarketCategory"]== "Z"):
 					category= "Z"
 					jdata={
 						
@@ -83,7 +85,7 @@ def Market_category():
 					}
 					all_json_list[category].append(jdata)
 
-				elif (todos2["MarketCategory"]== '' or todos2["MarketCategory"]== ""):
+				elif (x["MarketCategory"]== '' or x["MarketCategory"]== ""):
 					print(companyId)
 					category= "null"
 					jdata={
@@ -110,5 +112,5 @@ def Market_category():
 				
 	return json.dumps(all_json_list)
 			
-Market_category()
-# print(Market_category())
+#Market_category()
+print(Market_category("BBSCABLES"))
