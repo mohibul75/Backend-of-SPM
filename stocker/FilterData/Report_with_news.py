@@ -3,7 +3,7 @@ import requests
 import csv
 import array as arr
 
-def Report_with_news(id:str):
+def report_with_news(id):
 	#pass
 	# response = requests.get("https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR0UNljsm-ezbNkKryoHblOkrZNNzdjUGad6lcqQEydQbKuP7TRbZHYOFr4")
 	# response.raise_for_status()
@@ -80,4 +80,4 @@ def Report_with_news(id:str):
 	return json.dumps(all_json_list)
 			
 # Report_with_news()
-print(Report_with_news("BBSCABLES"))
+# print(report_with_news("BBSCABLES"))

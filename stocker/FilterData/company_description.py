@@ -3,7 +3,7 @@ import requests
 import csv
 import array as arr
 
-def Company_description(id:str):
+def company_description(id):
 	#pass
 	# response = requests.get("https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR0UNljsm-ezbNkKryoHblOkrZNNzdjUGad6lcqQEydQbKuP7TRbZHYOFr4")
 	# response.raise_for_status()
@@ -18,8 +18,8 @@ def Company_description(id:str):
 
 	
 	companyId = id
-				
-	response2 = requests.get("https://www.amarstock.com/data/1258dca00155/"+ companyId )
+	url = "https://www.amarstock.com/data/1258dca00155/" + companyId			
+	response2 = requests.get(url)
 	if (response2.status_code == 200):  
 		todos2 = json.loads(response2.text)
 		if todos2 is None:
@@ -47,4 +47,4 @@ def Company_description(id:str):
 	return json.dumps(all_json_list)
 			
 #Company_description()
-print(Company_description("BBSCABLES"))
+# print(company_description("ACI"))

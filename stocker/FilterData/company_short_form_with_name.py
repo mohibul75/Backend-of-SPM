@@ -28,8 +28,8 @@ def company_short_form_generator():
             data_dict["Full_name"] = data[i]["FullName"]
 
         list_of_company_name_and_short_name.append(data_dict)
-        if i > 380:
-            print(i)
+        # if i > 380:
+        #     print(i)
 
     return list_of_company_name_and_short_name
 
