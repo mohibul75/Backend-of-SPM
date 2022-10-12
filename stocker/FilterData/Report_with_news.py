@@ -103,7 +103,13 @@ def report_with_news(id):
         "reports": [
             {
                 "title": f"{id}-2018-2019-q1",
-                "link": "https://file.amarstock.com/" + "Content/scripReport/Quarterly/aci-2018-2019-q1-7439955496.pdf"
+                "link": "https://file.amarstock.com/" + "Content/scripReport/Quarterly/aci-2018-2019-q1-7439955496.pdf",
+                "type": "Quarterly"
+            },
+            {
+                "title": f"{id}-2019-2020-q1",
+                "link": "https://file.amarstock.com/" + "Content/scripReport/Quarterly/aci-2018-2019-q1-7439955496.pdf",
+                "type": "Annual"
             }
         ]
     }
