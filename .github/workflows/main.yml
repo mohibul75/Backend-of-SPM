@@ -33,7 +33,7 @@ jobs:
     
     steps:
   
-    - name: ssh with EC2
+    - name: ssh connection with EC2
       uses: fifsky/ssh-action@master
       with:
         command: |
