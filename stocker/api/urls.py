@@ -41,6 +41,10 @@ urlpatterns = [
     path('report_with_news/<str:company_code>/', reportWithNews),
     path('company_description/<str:company_code>/', companyDescription),
     
+    path('market_category/<str:id>/', marketCategory),
+    path('overall_market_details/', overallMarketDetails),
+    path('prediction/<str:id>/<int:days>/', prediction),
+    
     # path('last_10_days_update/', last_10_days_update),
     # path('market_category/', market_category)
 ]
