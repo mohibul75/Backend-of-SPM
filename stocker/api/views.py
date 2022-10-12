@@ -25,7 +25,7 @@ from FilterData.cgg_data_sender_dip import *
 from FilterData.Report_with_news import *
 from FilterData.company_description import *
 from FilterData.Market_category import *
-from FilterData.ML import *
+from FilterData.prediction import *
 
 
 @api_view(['GET'])
@@ -196,8 +196,8 @@ def overallMarketDetails(request):
 
 
 @api_view(['GET'])
-def prediction(request, id, days):
-    data = ml_prediction(id, days)
+def get_prediction(request, comapny_code, days):
+    data = prediction(comapny_code, days)
     return Response(data=data)
 
 

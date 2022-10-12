@@ -43,7 +43,7 @@ urlpatterns = [
     
     path('market_category/<str:id>/', marketCategory),
     path('overall_market_details/', overallMarketDetails),
-    path('prediction/<str:id>/<int:days>/', prediction),
+    path('prediction/<str:comapny_code>/<int:days>/', get_prediction),
     
     # path('last_10_days_update/', last_10_days_update),
     # path('market_category/', market_category)
