@@ -14,12 +14,13 @@ def company_description(id):
 	# 	print(companyList)
 
 	# 	count = 0
-	all_json_list = []
+	# all_json_list = []
 
 	
 	companyId = id
 	url = "https://www.amarstock.com/data/1258dca00155/" + companyId			
 	response2 = requests.get(url)
+	jdata = {}
 	if (response2.status_code == 200):  
 		todos2 = json.loads(response2.text)
 		if todos2 is None:
@@ -38,13 +39,13 @@ def company_description(id):
 
 		}
 		#print(jdata)
-		all_json_list.append(jdata)
+		# all_json_list.append(jdata)
 				# count= count+1
 
 				# if count>10:
 				# 	break
 				
-	return json.dumps(all_json_list)
+	return jdata
 			
 #Company_description()
 # print(company_description("ACI"))
