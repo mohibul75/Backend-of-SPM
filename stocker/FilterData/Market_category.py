@@ -120,34 +120,7 @@ import array as arr
 def market_category(id):
     # make this an endpoint
     # this requires changes
-    return [{
-        "Short_name": "1JANATAMF",
-        "Full_name": "First Janata Bank Mutual Fund"
-    },
-    {
-        "Short_name": "1STPRIMFMF",
-        "Full_name": "Prime Finance First Mutual Fund"
-    },
-    {
-        "Short_name": "AAMRANET",
-        "Full_name": "aamra networks limited"
-    },
-    {
-        "Short_name": "AAMRATECH",
-        "Full_name": "aamra technologies limited"
-    },
-    {
-        "Short_name": "ABB1STMF",
-        "Full_name": "AB Bank 1st Mutual fund"
-    },
-    {
-        "Short_name": "ABBANK",
-        "Full_name": "AB Bank Limited"
-    },
-    {
-        "Short_name": "ACFL",
-        "Full_name": "Aman Cotton Fibrous Limited"
-    }]
+    return ["ACI", "AOL", "1JANATAMF", "EHL", "BIFC", "BEXIMCO", "BBS"]
 
 
 def overall_market_details():
@@ -183,4 +156,3 @@ def get_total_companies():
     return len(all_company_list)
 
 
-# print(market_category("sdsd"))
