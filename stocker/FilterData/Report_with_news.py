@@ -115,4 +115,3 @@ def report_with_news(id):
     }
 
 
-print(report_with_news("ACI"))

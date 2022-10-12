@@ -163,7 +163,6 @@ def prediction(scrip, n):
   model = load_model(scrip)
 
   if model == None:
-    print('here in model')
     return 0
   
   closing_price, obv, days, sigPriceBuy, sigPriceSell = getPredictions(model, np_array, scaler, scaled_data, n)
