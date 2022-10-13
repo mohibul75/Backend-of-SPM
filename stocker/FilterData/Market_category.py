@@ -118,9 +118,30 @@ import array as arr
 # print(Market_category("BBSCABLES"))
 
 def market_category(id):
-    # make this an endpoint
-    # this requires changes
-    return ["ACI", "AOL", "1JANATAMF", "EHL", "BIFC", "BEXIMCO", "BBS"]
+    
+	companyId = id
+
+	response = requests.get("https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR0UNljsm-ezbNkKryoHblOkrZNNzdjUGad6lcqQEydQbKuP7TRbZHYOFr4")
+	response.raise_for_status()
+	if (response.status_code == 200):  
+		todos = json.loads(response.text)
+		companyList = len(todos)
+
+		count = 0
+		all_json_list=[]
+
+		for y in todos:
+			if (y["Scrip"]== companyId):
+				company_business_segment= y["BusinessSegment"]
+				break
+
+		for x in todos:
+			
+			if (company_business_segment==x["BusinessSegment"]):  
+
+				all_json_list.append(x["Scrip"])
+				
+	return all_json_list
 
 
 def overall_market_details():
