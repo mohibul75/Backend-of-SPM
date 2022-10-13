@@ -82,7 +82,7 @@ import array as arr
 # print(report_with_news("BEACONPHAR"))
 
 def report_with_news(id):
-    #pass
+    # pass
     # response = requests.get("https://www.amarstock.com/LatestPrice/34267d8d73dd?fbclid=IwAR0UNljsm-ezbNkKryoHblOkrZNNzdjUGad6lcqQEydQbKuP7TRbZHYOFr4")
     # response.raise_for_status()
     # if (response.status_code == 200):  
@@ -92,17 +92,17 @@ def report_with_news(id):
     #   print(companyList)
 
     #   count = 0
-    all_json_list={}
+    all_json_list = {}
     all_json_list["reports"] = []
     all_json_list["news"] = []
 
     # for x in todos:
     companyId = id
     # companyId = "BBSCABLES"
-                
-    response2 = requests.get("https://www.amarstock.com/data/1258dca00155/"+ companyId )
-    response3 = requests.get("https://www.amarstock.com/company/8821-633c4375ac25/?symbol=" + companyId )
-    if (response2.status_code == 200 and response3.status_code == 200):  
+
+    response2 = requests.get("https://www.amarstock.com/data/1258dca00155/" + companyId)
+    response3 = requests.get("https://www.amarstock.com/company/8821-633c4375ac25/?symbol=" + companyId)
+    if (response2.status_code == 200 and response3.status_code == 200):
         todos2 = json.loads(response2.text)
         todos3 = json.loads(response3.text)
         if todos2 is None or todos3 is None:
@@ -111,67 +111,65 @@ def report_with_news(id):
         reportLen = len(todos3)
         # print(reportLen)
 
-        jdata={}
-        title=''
-        body=''
+        jdata = {}
+        title = ''
+        body = ''
         for x in todos2:
             if "news" in x and "title" in x:
-                title= x
+                title = x
             elif "news" in x and "body" in x:
-                body= x
+                body = x
 
             if title != '' and body != '':
-                
                 jdata = {
-            
-                        "title": todos2[title],
-                        "body": todos2[body],
+
+                    "title": todos2[title],
+                    "body": todos2[body],
 
                 }
                 all_json_list["news"].append(jdata)
-                title=''
-                body=''
-
+                title = ''
+                body = ''
 
         num = 1
         # print(all_json_list)
-        jsdata={}
+        jsdata = {}
         for y in todos3:
             # titl= companyId+ "-"+ y["Title"]
             filePth = "https://file.amarstock.com/" + y["FilePath"]
             # print(y["Title"],y["FilePath"])
             # print(titl, filePth)
-            type= "Quarterly"
-            if "annual" in y["Title"]:
-                type= "Annual"
-            newData= {
-                "title" : y["Title"],
-                "link" : filePth,
+            type = "Quarterly"
+            if y["ReportType"] == "Y":
+                type = "Annual"
+            newData = {
+                "title": y["Title"],
+                "link": filePth,
                 "type": type
             }
             all_json_list["reports"].append(newData)
-            #jsdata.update(newData)
-                    # filePath= {filePth : y["FilePath"]}
-                    # jdta= json.loads(jdata)
-                    # jdta.update(title)
-                    # # jdata.update(filePath)
-                    # jdata = jdta
+            # jsdata.update(newData)
+            # filePath= {filePth : y["FilePath"]}
+            # jdta= json.loads(jdata)
+            # jdta.update(title)
+            # # jdata.update(filePath)
+            # jdata = jdta
             num += 1
             # print(jsdata)
             # print(num)
 
-
         # print(jdata)
-        print(jsdata)
+        # print(jsdata)
         # print("\n\n")
-                # break
+        # break
         # all_json_list["news"].append(jdata)
         # all_json_list["reports"].append(jsdata)
-                # count= count+1
+        # count= count+1
 
-                # if count>10:
-                #   break
-                
+        # if count>10:
+        #   break
+
     return json.dumps(all_json_list)
 
 
+print(report_with_news("BEXIMCO"))
