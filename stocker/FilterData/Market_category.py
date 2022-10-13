@@ -177,4 +177,3 @@ def get_total_companies():
     return len(all_company_list)
 
 
-print(overall_market_details())

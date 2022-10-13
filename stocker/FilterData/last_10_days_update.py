@@ -50,5 +50,3 @@ def Last_ten_days_price_update():
 					all_json_list.append(jdata)
 				
 	return json.dumps(all_json_list)
-
-print(Last_ten_days_price_update())

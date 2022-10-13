@@ -175,4 +175,3 @@ def report_with_news(id):
     return json.dumps(all_json_list)
 
 
-print(report_with_news("ACI"))

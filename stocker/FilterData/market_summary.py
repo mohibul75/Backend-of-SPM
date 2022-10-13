@@ -49,4 +49,3 @@ def market_summary_graph_data(company_name, datefrom):
     return dict
 
 
-print(get_market_summary_datas("ACI"))
