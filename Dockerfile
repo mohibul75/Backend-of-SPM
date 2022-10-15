@@ -4,7 +4,7 @@ ENV DockerHOME=/home/app/webapp
 RUN mkdir -p $DockerHOME  
   
 WORKDIR $DockerHOME  
-VOLUME /CNN
+VOLUME /home/app/webapp/CNN
   
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1  
