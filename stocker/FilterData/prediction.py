@@ -19,7 +19,7 @@ from sklearn.preprocessing import MinMaxScaler
 import tensorflow as tf
 from datetime import date, timedelta
 
-PATH = "C:\\Users\\B989\\OneDrive - Brain Station 23 Ltd\\Documents\\Backend-of-SPM\\stocker\\ml_models"
+PATH = "/home/app/webapp/CNN"
 
 def getCompanyJSON(scrip):
   response = requests.get("https://www.amarstock.com/data/afe01cd8b512070a/?scrip=" + scrip + "&cycle=Day1&dtFrom=2000-07-20T05%3A02%3A13.318Z")
