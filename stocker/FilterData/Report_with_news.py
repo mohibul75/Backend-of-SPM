@@ -169,7 +169,7 @@ def report_with_news(id):
         # if count>10:
         #   break
 
-    return json.dumps(all_json_list)
+    return all_json_list
 
 
 print(report_with_news("BEXIMCO"))
