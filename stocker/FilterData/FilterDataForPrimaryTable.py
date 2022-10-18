@@ -13,7 +13,7 @@ class RSI:
 
 
         elif value > 30 and value < 70:
-            self.interpretation = "compare"
+            self.interpretation = "neutral"
             self.verdict = "sell"
         elif value > 70:
             self.interpretation = "over bought"
@@ -48,7 +48,7 @@ class MACD:
 
         elif value < MA:
             self.interpretation = "bearish"
-            self.verdict = "sell/neutral"
+            self.verdict = "sell"
 
 class ADM:
     def __init__(self, value):
