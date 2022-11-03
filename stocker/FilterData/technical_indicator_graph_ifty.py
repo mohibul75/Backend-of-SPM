@@ -161,7 +161,13 @@ def getdY_MACD_PE(companyId):
     # PE Ratio
     eps = data['EPS']
     for l in range(len(modified_df)):
-        pe_ratio = modified_df.loc[l, 'Close'] / eps
+        pe_ratio = 0
+        if eps is not None and eps != 0:
+            pe_ratio = modified_df.loc[l, 'Close'] / eps
+
         result[str((modified_df.loc[l, 'DateEpoch']))].append(pe_ratio)
     # Return Format is a Dictionary. Key is Date. so result[date] will give you an array of 3 values. First DY, Second MACD, Third PE
     return result
+
+
+print(getdY_MACD_PE("ACI"))

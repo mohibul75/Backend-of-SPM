@@ -40,7 +40,9 @@ def get_dividend_payout_ratio(data):
     EPS = data['EPS']
 
     dividends_per_share = (dividend_yield * LTP) / 100
-    dividend_payout_ratio = dividends_per_share / EPS
+    dividend_payout_ratio = 0
+    if EPS is not None and EPS != 0:
+        dividend_payout_ratio = dividends_per_share / EPS
 
     return f"{dividend_payout_ratio:.2f}"
 
